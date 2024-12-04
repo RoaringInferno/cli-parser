@@ -1,4 +1,4 @@
-#include "cli_parser.hpp"
+#include "cli_parser"
 
 largs::cli_parser::cli_parser(const std::vector<std::string> &raw_argument_list)
 {

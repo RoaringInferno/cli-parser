@@ -23,8 +23,28 @@ namespace largs
             type_t argument_type;
             std::string_view argument_value;
         };
+    public:
+        typedef std::vector<argument_t>::iterator iterator;
+        typedef std::vector<argument_t>::const_iterator const_iterator;
+        typedef std::vector<argument_t>::reverse_iterator reverse_iterator;
+        typedef std::vector<argument_t>::const_reverse_iterator const_reverse_iterator;
+
+        iterator begin() { return arguments.begin(); }
+        const_iterator begin() const { return arguments.begin(); }
+        iterator end() { return arguments.end(); }
+        const_iterator end() const { return arguments.end(); }
+
+        reverse_iterator rbegin() { return arguments.rbegin(); }
+        const_reverse_iterator rbegin() const { return arguments.rbegin(); }
+        reverse_iterator rend() { return arguments.rend(); }
+        const_reverse_iterator rend() const { return arguments.rend(); }
     private:
         std::vector<argument_t> arguments;
+    public:
+        const std::vector<argument_t> &argument_list() const { return arguments; }
+        std::vector<argument_t> &argument_list() { return arguments; }
+
+        void parse(const std::vector<std::string>& raw_argument_list);
     public:
         cli_parser() = default;
         cli_parser(const std::vector<std::string>& raw_argument_list);
@@ -33,10 +53,5 @@ namespace largs
         cli_parser &operator=(const cli_parser &) = default;
         cli_parser &operator=(cli_parser &&) = default;
         ~cli_parser() = default;
-
-        const std::vector<argument_t> &argument_list() const { return arguments; }
-        std::vector<argument_t> &argument_list() { return arguments; }
-
-        void parse(const std::vector<std::string>& raw_argument_list);
     };
 } // namespace largs
